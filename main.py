@@ -25,6 +25,7 @@ from PIL import Image
 # Transaction
 from vend.airtime.lookup import AirTimeData, get_all_airtime
 from vend.data.lookup import DataLookup
+from vend.electricity.electricity import electricity_validation, Electricity, purchase_electricity, Purchase
 from vend.report import TransactionData, get_transaction
 
 app = FastAPI()
@@ -121,23 +122,26 @@ async def email_verification(request: Request, token: str):
         headers={"WWW.Authenticate": "Bearer"}
     )
 
+
 @app.post("/validate-electricity")
 async def validate_electricity(params: Electricity):
-    validate = 
+    validate = electricity_validation(params)
+    return validate
 
 
-@app.get("/")
-def home():
-    return {"Hello": "World"}
+@app.post("/purchase-electricity")
+async def vend_electricity(params: Purchase):
+    purchase = purchase_electricity(params)
+    return purchase
 
 
 @app.post("/vend/airtime")
 async def get_airtime_lookups(params: AirTimeData):
+
     vendairtime = get_all_airtime(params)
     return {
         "details": vendairtime
     }
-
 
 @app.post("/transaction-details")
 async def get_transaction_details(params: TransactionData):
@@ -214,7 +218,7 @@ async def update_balance(data: update_balance_log):
     if user:
         if user.balance >= data.balance:
             updated = await User.filter(email=user.email).update(balance=user.balance - data.balance, transaction_id=data.transaction_id)
-            transaction = await create_transaction({'email': data.email, 'type': "airtime", 'amount': data.balance,
+            transaction = await create_transaction({'email': data.email, 'type': data.email, 'amount': data.balance,
                                                     "transaction_id": data.transaction_id})
             return updated
     else:

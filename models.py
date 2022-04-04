@@ -11,6 +11,7 @@ class User(Model):
     status = fields.CharField(null=False, default="user", max_length=5,)
     password = fields.CharField(max_length=100, null=False)
     transaction_id = fields.CharField(max_length=20, null=False, unique=True, default=0)
+    type = fields.CharField(max_length=20, null=False, unique=True, default="airtime")
     is_verified = fields.BooleanField(default=False)
     join_date = fields.DatetimeField(default=datetime.utcnow())
 
