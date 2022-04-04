@@ -242,6 +242,7 @@ origins = [
     "http://localhost:3000",
     "http://localhost:8080",
     "https://fidpress-api.herokuapp.com",
+    "https://fidpress.netlify.app",
 ]
 
 app.add_middleware(
