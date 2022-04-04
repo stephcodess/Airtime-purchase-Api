@@ -228,7 +228,7 @@ async def update_balance(data: update_balance_log):
         return updated
 
 
-@app.post("/")
+@app.get("/")
 async def hello_world():
     return "hello world"
 # @app.get("/transactions")
