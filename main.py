@@ -228,6 +228,9 @@ async def update_balance(data: update_balance_log):
         return updated
 
 
+@app.post("/")
+async def hello_world():
+    return "hello world"
 # @app.get("/transactions")
 # async def create_transaction(transaction: transaction_pydantic):
 #     transaction_info = transaction.dict()
