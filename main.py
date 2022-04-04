@@ -238,6 +238,7 @@ async def update_balance(data: update_balance_log):
 origins = [
     "http://localhost:3000",
     "http://localhost:8080",
+    "https://fidpress-api.herokuapp.com",
 ]
 
 app.add_middleware(
